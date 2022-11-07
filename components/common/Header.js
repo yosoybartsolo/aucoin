@@ -11,7 +11,7 @@ const logoUrl = "/logo.png";
 const navigation = {
   categories: [],
   pages: [
-    { name: "DemoPage", href: "/demo" },
+    { name: "Subastas", href: "/subastas" },
     { name: "Subasta con nosotros", href: "/contact" },
   ],
 };
