@@ -12,7 +12,7 @@ const navigation = {
   categories: [],
   pages: [
     { name: "DemoPage", href: "/demo" },
-    { name: "Contact Us", href: "/contact" },
+    { name: "Subasta con nosotros", href: "/contact" },
   ],
 };
 
