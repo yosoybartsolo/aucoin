@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <MainLayout title="DemoPage" description="this is a demo page">
+    <MainLayout title="Subastas" description="página de subastas">
       <div className="content flex justify-center items-center w-full my-16">
         <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
           <div className="rounded-md shadow">
@@ -24,7 +24,7 @@ export default function Home() {
                     Monedita kawaii Miaw!{" "}
                   </h2>
                   <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
-                    12/12/2021
+                    12/12/2022
                   </p>
                   <button className="bg-gray-200 px-2 rounded-md cursor-pointer">
                     Ver subasta

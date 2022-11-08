@@ -2,9 +2,9 @@ import { NextSeo } from "next-seo";
 
 //EDIT ME PLEASE
 const data = {
-  siteName: "Molus.co",
-  title: "Molus.co Starter",
-  description: "Molus.co NextJs Starter Description",
+  siteName: "Aucoin.com",
+  title: "Aucoin",
+  description: "Subastas online seguras, de monedas",
   url: "https://molus.co",
   imageUrl: "/og.jpeg",
   twitter: "@moluscomx",
