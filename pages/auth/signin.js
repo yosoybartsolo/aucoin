@@ -5,8 +5,58 @@ import {
   getCsrfToken,
   getSession,
 } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { Router, useRouter } from 'next/router';
+import * as solanaWeb3 from '@solana/web3.js';
+
+
+let phantom;
 
 const SignInPage = ({ providers, csrfToken, errorMessage }) => {
+  const router = useRouter()
+  
+
+  useEffect(() => {
+    if ('phantom' in window) {
+      const provider = window.phantom?.solana;
+  
+      if (provider?.isPhantom) {
+        console.log(provider);
+        phantom = provider;
+        checkWallet();
+      }
+    }
+    
+  }, []);
+
+
+  const checkWallet = async () => {
+    console.log('checking wallet');
+  try {
+    const {solana} = window;
+    
+    if (true) {
+      
+      if(solana.isPhantom) {
+        console.log('Phantom wallet is installed');
+        //const response = await solana.connect();
+        const response = await phantom.connect();
+        //const response = await phantom.disconnect();
+        //const disconnect = await solana.disconnect();
+        //console.log('disconnect', disconnect);
+        
+   
+        console.log(response.publicKey.toString());
+        router.push('/');
+      }else{
+        console.log('Phantom wallet is not installed');
+      }
+    }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       <div className=" h-full min-h-full w-full flex justify-center items-center">
@@ -17,54 +67,6 @@ const SignInPage = ({ providers, csrfToken, errorMessage }) => {
                 Iniciar Sesión
               </h2>
             </div>
-
-            <div className="mt-8">
-              <div className="mt-6">
-                <form
-                  method="post"
-                  action="/api/auth/signin/email"
-                  className="space-y-6"
-                >
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Email
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        name="csrfToken"
-                        type="hidden"
-                        defaultValue={csrfToken}
-                      />
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  {errorMessage && (
-                    <div className="mt-3 text-sm text-red-600">
-                      {errorMessage}
-                    </div>
-                  )}
-
-                  <div>
-                    <button
-                      type="submit"
-                      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
-                    >
-                      Iniciar Sesión
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -72,12 +74,15 @@ const SignInPage = ({ providers, csrfToken, errorMessage }) => {
   );
 };
 
+
+
+
 export async function getServerSideProps(context) {
   //getting providers and csfr token
-  const providers = await getProviders();
-  const csrfToken = await getCsrfToken(context);
-  const session = await getSession({ req: context.req });
-
+  const providers = ''//await getProviders();
+  const csrfToken = ''//await getCsrfToken(context);
+  const session = ''//await getSession({ req: context.req });
+  console.log(csrfToken);
   const { error } = context.query;
   let errorMessage = "";
 
@@ -91,7 +96,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  if (error) {
+  /*if (error) {
     const errors = {
       Signin: "Try using a different email address",
       OAuthSignin: "Try using a different email address",
@@ -106,7 +111,7 @@ export async function getServerSideProps(context) {
     };
 
     errorMessage = errors[error] || errors.default;
-  }
+  }*/
 
   return {
     props: { errorMessage, providers, csrfToken },
