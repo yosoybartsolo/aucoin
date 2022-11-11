@@ -7,7 +7,6 @@ import {
 } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Router, useRouter } from 'next/router';
-import * as solanaWeb3 from '@solana/web3.js';
 
 
 let phantom;
@@ -39,15 +38,9 @@ const SignInPage = ({ providers, csrfToken, errorMessage }) => {
       
       if(solana.isPhantom) {
         console.log('Phantom wallet is installed');
-        //const response = await solana.connect();
         const response = await phantom.connect();
-        //const response = await phantom.disconnect();
-        //const disconnect = await solana.disconnect();
-        //console.log('disconnect', disconnect);
-        
-   
         console.log(response.publicKey.toString());
-        router.push('/');
+        //router.push('/');
       }else{
         console.log('Phantom wallet is not installed');
       }
@@ -57,6 +50,27 @@ const SignInPage = ({ providers, csrfToken, errorMessage }) => {
     }
   }
 
+  const loginWithPhantom = async () => {
+    try {
+      const message = 'Para evitar que alguien se haga pasar por ti, necesitamos que firmes este mensaje';
+      const encodeMessage = new TextEncoder().encode(message);
+      const signedMessage = await phantom.request({
+        method: 'signMessage',
+        params: {
+          message: encodeMessage,
+          display: 'UTF-8',
+        },});
+      if(signedMessage.signature) {
+        window.localStorage.setItem('signature', signedMessage.signature);
+        router.push('/');
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   return (
     <div>
       <div className=" h-full min-h-full w-full flex justify-center items-center">
@@ -64,8 +78,26 @@ const SignInPage = ({ providers, csrfToken, errorMessage }) => {
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
               <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-                Iniciar Sesión
               </h2>
+            </div>
+
+            <div className="mt-8">
+              <div className="mt-6">
+                  {errorMessage && (
+                    <div className="mt-3 text-sm text-red-600">
+                      {errorMessage}
+                    </div>
+                  )}
+
+                  <div>
+                    <button
+                      onClick={() => loginWithPhantom()}
+                      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                    >
+                      Inicia sesión con Phantom
+                    </button>
+                  </div>
+              </div>
             </div>
           </div>
         </div>
