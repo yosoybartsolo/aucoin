@@ -1,6 +1,7 @@
 import MainLayout from "@/components/layouts/MainLayout";
 import Link from "next/link";
 import Image from "next/image";
+import Countdown from "@/components/common/Countdown";
 
 export default function Home() {
   return (
@@ -29,10 +30,11 @@ export default function Home() {
                   <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
                     13/11/2022
                   </p>
+                  <Countdown date="2022-11-13" />
                   <div className="rounded-md shadow">
                     <a
                       href="/subastas"
-                      className="flex w-44 items-center justify-center rounded-md border border-transparent bg-yellow-600 px-8 py-3 text-base font-medium text-white hover:bg-yellow-700 md:py-4 md:px-10 md:text-lg"
+                      className="flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-600 px-8 py-3 text-base font-medium text-white hover:bg-yellow-700 md:py-4 md:px-10 md:text-lg"
                     >
                       Pujar
                     </a>
