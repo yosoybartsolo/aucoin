@@ -8,11 +8,11 @@ export default function Home() {
       <div className="content flex justify-center items-center w-full my-16">
         <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
           <div className="rounded-md shadow">
-            <Link href="" passHref>
+            <Link href="/subastas/moneditakawaiiunicorn" passHref>
               <div className="thumbitem  cursor-pointer mx-4 mb-4  shadow-md">
                 <div className="photocontainer">
                   <Image
-                    src="/images/kawaii-coin.png"
+                    src="/images/monedita-kawaii-unicorn.png"
                     alt=""
                     width={800}
                     height={600}
@@ -21,7 +21,7 @@ export default function Home() {
                 </div>
                 <div className="textcontainer pb-4 px-2">
                   <h2 className="title text-lg font-bold my-2">
-                    Monedita kawaii Miaw!{" "}
+                    Monedita kawaii unicorn!{" "}
                   </h2>
                   <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
                     12/12/2022

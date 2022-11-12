@@ -31,7 +31,11 @@ const Header = () => {
           <div>
             <Link href="/">
               <a className="flex">
-                <img className="h-8 w-auto sm:h-10" src={logoUrl} alt="" />
+                <img
+                  className="h-8 w-auto sm:h-10"
+                  src={logoUrl}
+                  alt="aucoin logo"
+                />
               </a>
             </Link>
           </div>
