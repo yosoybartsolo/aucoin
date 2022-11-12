@@ -54,9 +54,7 @@ const Header = () => {
         phantom = provider;
         try {
           const {solana} = window;
-          
-          if (true) {
-            
+                    
             if(solana.isPhantom) {
               console.log('Phantom wallet is installed');
               const response = await phantom.connect();
@@ -65,12 +63,17 @@ const Header = () => {
               router.push('/auth/signin');
             }else{
               console.log('Phantom wallet is not installed');
+              window.open('https://phantom.app/', '_blank');
             }
-          }
           } catch (error) {
             console.log(error);
           }
+      } else {
+        console.log('Phantom wallet is not installed');
+        
       }
+    }else {
+      window.open('https://phantom.app/', '_blank');
     }
   }
 
