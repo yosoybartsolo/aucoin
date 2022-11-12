@@ -9,7 +9,7 @@ const AuctionList = ({ data }) => {
         {data && data.length > 0 ? (
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-flow-row xl:grid-cols-4">
             {data.map((event) => (
-              <EventThumb key={event._id} data={event} />
+              <AuctionThumb key={event._id} data={event} />
             ))}
           </div>
         ) : (

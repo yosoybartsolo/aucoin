@@ -21,7 +21,8 @@ export default function Hero() {
                 </span>{" "}
               </h1>
               <p className="mx-auto mt-3 max-w-md text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
-                La forma más segura de comprar y vender monedas en internet.
+                La forma más segura de comprar y vender monedas en internet, con
+                el respaldo de tecnología blockchain.
               </p>
               <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
@@ -30,6 +31,14 @@ export default function Hero() {
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-600 px-8 py-3 text-base font-medium text-white hover:bg-yellow-700 md:py-4 md:px-10 md:text-lg"
                   >
                     Ver subastas
+                  </a>
+                </div>
+                <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+                  <a
+                    href="/contact"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium text-yellow-600 hover:bg-gray-50 md:py-4 md:px-10 md:text-lg"
+                  >
+                    ¿Cómo funciona?
                   </a>
                 </div>
               </div>
