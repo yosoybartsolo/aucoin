@@ -1,10 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Link from "next/link";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useSession, signOut } from "next-auth/react";
 import classNames from "@/utils/classNames";
+import { useEffect } from "react";
+import { Router, useRouter } from 'next/router';
+import Image from 'next/image';
+
+
 
 //HEADER SETUP
 const logoUrl = "/logo.png";
@@ -15,9 +20,66 @@ const navigation = {
     { name: "Subasta con nosotros", href: "/contact" },
   ],
 };
+let phantom;
 
 const Header = () => {
   const { data: session } = useSession();
+  const router = useRouter();
+  const [publicKey, setPublicKey] = useState(null);
+
+  useEffect(() => {
+    if ('phantom' in window) {
+      const provider = window.phantom?.solana;
+      let key = window.localStorage.getItem('publicKey');
+      if(key) {
+        let firstFour = key?.substring(0, 4);
+        let lastFour = key?.substring(key?.length - 4);
+        key = firstFour + '...' + lastFour;
+        setPublicKey(key);
+      }
+      
+      
+      if (provider?.isPhantom) {  
+        console.log(provider);
+        phantom = provider;
+      }
+    }
+    
+  }, []);
+
+  const  connectWallet = async () => {
+    if ('phantom' in window) {
+      const provider = window.phantom?.solana;
+      if (provider?.isPhantom) {  
+        phantom = provider;
+        try {
+          const {solana} = window;
+          
+          if (true) {
+            
+            if(solana.isPhantom) {
+              console.log('Phantom wallet is installed');
+              const response = await phantom.connect();
+              console.log(response.publicKey.toString());
+              //loginWithPhantom();
+              router.push('/auth/signin');
+            }else{
+              console.log('Phantom wallet is not installed');
+            }
+          }
+          } catch (error) {
+            console.log(error);
+          }
+      }
+    }
+  }
+
+  const signOutWallet =  () => {
+    console.log('sign out');
+    window.localStorage.removeItem('publicKey');
+    window.localStorage.removeItem('signature');
+    router.reload(window.location.pathname);
+  }
 
   return (
     <Popover className="relative bg-white">
@@ -53,24 +115,22 @@ const Header = () => {
             </Popover.Group>
             {/* HEADER DEKTOP RIGHT SECTION BUTTONS */}
             <div className="flex items-center md:ml-12">
-              {session ? (
+              {publicKey ? (
                 <Menu as="div" className="ml-3 relative">
                   <div>
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-offset-2  focus:ring-white">
                       <span className="sr-only">Open user menu</span>
-                      {session.user.image ? (
-                        <img
-                          className="h-8 w-8 rounded-full"
-                          src={session.user.image}
+                      
+                        <Image
+                          className="rounded-full px-1 py-2"
+                          width={32} height={32}
+                          src='/images/phantom.png'
                           alt=""
                         />
-                      ) : (
-                        <img
-                          className="h-8 w-8 rounded-full"
-                          src={`https://avatars.dicebear.com/api/micah/${session.user.email}.svg?background=%23ffffff`}
-                          alt=""
-                        />
-                      )}
+                        <div className="text-white px-1 py-2">
+                          {publicKey}
+                        </div>
+                     
                     </Menu.Button>
                   </div>
                   <Transition
@@ -97,8 +157,7 @@ const Header = () => {
                           </Link>
                         )}
                       </Menu.Item>
-
-                      {session.user.roles.includes("admin") && (
+                      {true && (
                         <Menu.Item>
                           {({ active }) => (
                             <Link href="/admin/dashboard">
@@ -122,7 +181,7 @@ const Header = () => {
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
                             )}
-                            onClick={() => signOut()}
+                            onClick={() => signOutWallet()}
                           >
                             Salir
                           </div>
@@ -132,9 +191,9 @@ const Header = () => {
                   </Transition>
                 </Menu>
               ) : (
-                <Link href="/auth/signin">
-                  <a>Sign In </a>
-                </Link>
+                <button onClick={() => {connectWallet()}}>
+                  <a>Conectar cartera </a>
+                </button>
               )}
             </div>
           </div>

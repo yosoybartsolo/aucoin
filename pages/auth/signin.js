@@ -5,54 +5,12 @@ import {
   getCsrfToken,
   getSession,
 } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { Router, useRouter } from 'next/router';
-import { Connection, SystemProgram, PublicKey, VersionedTransaction, LAMPORTS_PER_SOL,sendAndConfirmTransaction, clusterApiUrl ,TransactionMessage, Transaction, Keypair, recentBlockhash, signAndSendTransaction} from '@solana/web3.js';
+import { useRouter } from 'next/router';
 const bs58 = require('bs58');
-
-
-let phantom;
-let connection;
 
 const SignInPage = ({ providers, csrfToken, errorMessage }) => {
   const router = useRouter()
   
-
-  useEffect(() => {
-    if ('phantom' in window) {
-      const provider = window.phantom?.solana;
-      
-  
-      if (provider?.isPhantom) {
-        console.log(provider);
-        phantom = provider;
-        checkWallet();
-      }
-    }
-    
-  }, []);
-
-
-  const checkWallet = async () => {
-    console.log('checking wallet');
-  try {
-    const {solana} = window;
-    
-    if (true) {
-      
-      if(solana.isPhantom) {
-        console.log('Phantom wallet is installed');
-        const response = await phantom.connect();
-        console.log(response.publicKey.toString());
-        //router.push('/');
-      }else{
-        console.log('Phantom wallet is not installed');
-      }
-    }
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   const getProvider = () => {
     if ('phantom' in window) {
@@ -64,37 +22,12 @@ const SignInPage = ({ providers, csrfToken, errorMessage }) => {
     }
   };
 
-  const transtaction = async () => {
-      const provider = getProvider();
-
-      const connection = new Connection(clusterApiUrl('mainnet-beta'), 'confirmed');
-      let blockhashObj = await connection.getLatestBlockhash();
-
-      const TransactionInstruction = SystemProgram.transfer({
-        fromPubkey: new PublicKey('9rbf2rjf1CySrEZhMtooF9z9GkdjKk9gxygBAAC7fAZx'),
-        toPubkey: new PublicKey('GoeCHuxBNm8Z9Mk18ri3oUXddjXvYvQWeay3KJTDNtSi'),
-        lamports: 1,
-      });
-      
-      const transaction = new Transaction({
-        recentBlockhash: blockhashObj,
-        feePayer: new PublicKey('9rbf2rjf1CySrEZhMtooF9z9GkdjKk9gxygBAAC7fAZx'),
-      }).add(TransactionInstruction);
-
-      console.log(bs58.encode(Uint8Array.from(transaction)));
-      const { signature } = await provider.request({
-          method: "signAndSendTransaction",
-          params: {
-              message: bs58.encode(Uint8Array.from(transaction)),
-          },
-      });
-  }
-
   const loginWithPhantom = async () => {
     try {
+      const provider = getProvider();
       const message = 'Para evitar que alguien se haga pasar por ti, necesitamos que firmes este mensaje';
       const encodeMessage = new TextEncoder().encode(message);
-      const signedMessage = await phantom.request({
+      const signedMessage = await provider.request({
         method: 'signMessage',
         params: {
           message: encodeMessage,
@@ -102,7 +35,9 @@ const SignInPage = ({ providers, csrfToken, errorMessage }) => {
         },});
       if(signedMessage.signature) {
         window.localStorage.setItem('signature', signedMessage.signature);
-        //router.push('/');
+        window.localStorage.setItem('publicKey', signedMessage.publicKey);
+        console.log(signedMessage);
+        router.push('/');
       }
 
     } catch (error) {
@@ -131,7 +66,7 @@ const SignInPage = ({ providers, csrfToken, errorMessage }) => {
 
                   <div>
                     <button
-                      onClick={() => transtaction()}
+                      onClick={() => loginWithPhantom()}
                       className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
                     >
                       Inicia sesión con Phantom
