@@ -5,8 +5,47 @@ import {
   getCsrfToken,
   getSession,
 } from "next-auth/react";
+import { useRouter } from 'next/router';
+const bs58 = require('bs58');
 
 const SignInPage = ({ providers, csrfToken, errorMessage }) => {
+  const router = useRouter()
+  
+
+  const getProvider = () => {
+    if ('phantom' in window) {
+      const provider = window.phantom?.solana;
+  
+      if (provider?.isPhantom) {
+        return provider;
+      }
+    }
+  };
+
+  const loginWithPhantom = async () => {
+    try {
+      const provider = getProvider();
+      const message = 'Para evitar que alguien se haga pasar por ti, necesitamos que firmes este mensaje';
+      const encodeMessage = new TextEncoder().encode(message);
+      const signedMessage = await provider.request({
+        method: 'signMessage',
+        params: {
+          message: encodeMessage,
+          display: 'UTF-8',
+        },});
+      if(signedMessage.signature) {
+        window.localStorage.setItem('signature', signedMessage.signature);
+        window.localStorage.setItem('publicKey', signedMessage.publicKey);
+        console.log(signedMessage);
+        router.push('/');
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   return (
     <div>
       <div className=" h-full min-h-full w-full flex justify-center items-center">
@@ -14,40 +53,11 @@ const SignInPage = ({ providers, csrfToken, errorMessage }) => {
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
               <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-                Iniciar Sesión
               </h2>
             </div>
 
             <div className="mt-8">
               <div className="mt-6">
-                <form
-                  method="post"
-                  action="/api/auth/signin/email"
-                  className="space-y-6"
-                >
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Email
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        name="csrfToken"
-                        type="hidden"
-                        defaultValue={csrfToken}
-                      />
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
-                      />
-                    </div>
-                  </div>
-
                   {errorMessage && (
                     <div className="mt-3 text-sm text-red-600">
                       {errorMessage}
@@ -56,13 +66,12 @@ const SignInPage = ({ providers, csrfToken, errorMessage }) => {
 
                   <div>
                     <button
-                      type="submit"
+                      onClick={() => loginWithPhantom()}
                       className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
                     >
-                      Iniciar Sesión
+                      Inicia sesión con Phantom
                     </button>
                   </div>
-                </form>
               </div>
             </div>
           </div>
@@ -72,12 +81,15 @@ const SignInPage = ({ providers, csrfToken, errorMessage }) => {
   );
 };
 
+
+
+
 export async function getServerSideProps(context) {
   //getting providers and csfr token
-  const providers = await getProviders();
-  const csrfToken = await getCsrfToken(context);
-  const session = await getSession({ req: context.req });
-
+  const providers = ''//await getProviders();
+  const csrfToken = ''//await getCsrfToken(context);
+  const session = ''//await getSession({ req: context.req });
+  console.log(csrfToken);
   const { error } = context.query;
   let errorMessage = "";
 
@@ -91,7 +103,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  if (error) {
+  /*if (error) {
     const errors = {
       Signin: "Try using a different email address",
       OAuthSignin: "Try using a different email address",
@@ -106,7 +118,7 @@ export async function getServerSideProps(context) {
     };
 
     errorMessage = errors[error] || errors.default;
-  }
+  }*/
 
   return {
     props: { errorMessage, providers, csrfToken },
