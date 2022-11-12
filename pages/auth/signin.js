@@ -67,7 +67,7 @@ const SignInPage = ({ providers, csrfToken, errorMessage }) => {
   const transtaction = async () => {
       const provider = getProvider();
 
-      const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+      const connection = new Connection(clusterApiUrl('mainnet-beta'), 'confirmed');
       let blockhashObj = await connection.getLatestBlockhash();
 
       const TransactionInstruction = SystemProgram.transfer({
