@@ -71,11 +71,11 @@ export default function Home() {
       <div className="content flex justify-center items-center w-full my-16">
         <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
           <div className="rounded-md shadow">
-            <Link href="/subastas/moneditakawaiiunicorn" passHref>
+            <Link href="#" passHref>
               <div className="thumbitem  cursor-pointer mx-4 mb-4  shadow-md">
                 <div className="photocontainer">
                   <Image
-                    src="/images/monedita-kawaii-unicorn.png"
+                    src="/images/one-dollar.jpeg"
                     alt=""
                     width={512}
                     height={512}
@@ -83,32 +83,25 @@ export default function Home() {
                   />
                 </div>
                 <div className="textcontainer pb-4 px-2">
-                  <p className="flex w-24 bg-green-500  text-white px-2 rounded-md gont-bold text-sm mt-2">
-                    En subasta
+                  <p className="flex w-24 bg-red-500  text-white px-2 rounded-md gont-bold text-sm mt-2">
+                    Finalizada
                   </p>
                   <h2 className="title text-lg font-bold my-2">
-                    Monedita kawaii unicorn!{" "}
+                    Moneda latón $100 pesos{" "}
                   </h2>
                   <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
                     13/11/2022
                   </p>
-                  <Countdown date="2022-11-13" />
-                  <input
-                    type="text"
-                    className="w-full border-2 border-gray-300 p-2 my-2 rounded-md"
-                    placeholder="Oferta"
-                    value={bid}
-                    onChange={(e) => setBid(e.target.value)}
-                  />
+
                   <div className="rounded-md shadow">
-                    <div
-                      onClick={() => {
-                        sendBid();
-                      }}
-                      className="flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-600 px-8 py-3 text-base font-medium text-white hover:bg-yellow-700 md:py-4 md:px-10 md:text-lg"
+                    <button
+                      disabled="true"
+                      id="Button"
+                      type="button"
+                      className="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-gray-400  md:py-4 md:px-10 md:text-lg"
                     >
                       Pujar
-                    </div>
+                    </button>
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 mt-2">

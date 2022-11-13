@@ -26,8 +26,8 @@ export default function Home() {
                   <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
                     12/12/2022
                   </p>
-                  <button className="bg-gray-200 px-2 rounded-md cursor-pointer">
-                    Ver subasta
+                  <button className="bg-green-600 text-white px-2 rounded-md cursor-pointer">
+                    En subasta
                   </button>
                 </div>
               </div>
