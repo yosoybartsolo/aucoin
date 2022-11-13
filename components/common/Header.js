@@ -35,7 +35,9 @@ const Header = () => {
         let lastFour = key?.substring(key?.length - 4);
         key = firstFour + "..." + lastFour;
         setPublicKey(key);
-      } else if (provider?.isPhantom) {
+      }
+
+      if (provider?.isPhantom) {
         console.log(provider);
         phantom = provider;
       }
