@@ -2,6 +2,7 @@ import MainLayout from "@/components/layouts/MainLayout";
 import Link from "next/link";
 import Image from "next/image";
 import Countdown from "@/components/common/Countdown";
+import BidHistory from "../../components/common/BidHistory";
 
 export default function Home() {
   return (
@@ -39,9 +40,21 @@ export default function Home() {
                       Pujar
                     </a>
                   </div>
+                  <div>
+                    <p className="text-sm text-gray-500 mt-2">
+                      <span className="font-bold">Precio de salida:</span> 0.01
+                      SOL
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500 mt-2">
+                      <span className="font-bold">Precio actual:</span> 0.01 SOL
+                    </p>
+                  </div>
                 </div>
               </div>
             </Link>
+            <BidHistory />
           </div>
         </div>
       </div>
