@@ -34,7 +34,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="rounded-md shadow">
-            <Link href="/subastas/moneditakawaiiunicorn" passHref>
+            <Link href="/subastas/monedalaton" passHref>
               <div className="thumbitem  cursor-pointer mx-4 mb-4  shadow-md">
                 <div className="photocontainer">
                   <Image
@@ -52,15 +52,15 @@ export default function Home() {
                   <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
                     12/12/2022
                   </p>
-                  <button className="bg-gray-200 px-2 rounded-md cursor-pointer">
-                    Ver subasta
+                  <button className="bg-red-400 text-white px-2 rounded-md cursor-pointer">
+                    Finalizada
                   </button>
                 </div>
               </div>
             </Link>
           </div>
           <div className="rounded-md shadow">
-            <Link href="/subastas/moneditakawaiiunicorn" passHref>
+            <Link href="/subastas/monedadollar" passHref>
               <div className="thumbitem  cursor-pointer mx-4 mb-4  shadow-md">
                 <div className="photocontainer">
                   <Image
@@ -78,15 +78,15 @@ export default function Home() {
                   <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
                     12/12/2022
                   </p>
-                  <button className="bg-gray-200 px-2 rounded-md cursor-pointer">
-                    Ver subasta
+                  <button className="bg-red-400 text-white px-2 rounded-md cursor-pointer">
+                    Finalizada
                   </button>
                 </div>
               </div>
             </Link>
           </div>
           <div className="rounded-md shadow">
-            <Link href="/subastas/moneditakawaiiunicorn" passHref>
+            <Link href="/subastas/monedaolimpiadas" passHref>
               <div className="thumbitem  cursor-pointer mx-4 mb-4  shadow-md">
                 <div className="photocontainer">
                   <Image
@@ -104,8 +104,8 @@ export default function Home() {
                   <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
                     12/12/2022
                   </p>
-                  <button className="bg-gray-200 px-2 rounded-md cursor-pointer">
-                    Ver subasta
+                  <button className="bg-red-400 text-white px-2 rounded-md cursor-pointer">
+                    Finalizada
                   </button>
                 </div>
               </div>
