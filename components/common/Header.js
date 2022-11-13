@@ -6,10 +6,8 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useSession, signOut } from "next-auth/react";
 import classNames from "@/utils/classNames";
 import { useEffect } from "react";
-import { Router, useRouter } from 'next/router';
-import Image from 'next/image';
-
-
+import { Router, useRouter } from "next/router";
+import Image from "next/image";
 
 //HEADER SETUP
 const logoUrl = "/logo.png";
@@ -18,6 +16,7 @@ const navigation = {
   pages: [
     { name: "Subastas", href: "/subastas" },
     { name: "Subasta con nosotros", href: "/contact" },
+    { name: "Candy Machine", href: "/candymachine" },
   ],
 };
 let phantom;
@@ -28,61 +27,58 @@ const Header = () => {
   const [publicKey, setPublicKey] = useState(null);
 
   useEffect(() => {
-    if ('phantom' in window) {
+    if ("phantom" in window) {
       const provider = window.phantom?.solana;
-      let key = window.localStorage.getItem('publicKey');
-      if(key) {
+      let key = window.localStorage.getItem("publicKey");
+      if (key) {
         let firstFour = key?.substring(0, 4);
         let lastFour = key?.substring(key?.length - 4);
-        key = firstFour + '...' + lastFour;
+        key = firstFour + "..." + lastFour;
         setPublicKey(key);
       }
-      
-      
-      if (provider?.isPhantom) {  
+
+      if (provider?.isPhantom) {
         console.log(provider);
         phantom = provider;
       }
     }
-    
   }, []);
 
-  const  connectWallet = async () => {
-    if ('phantom' in window) {
+  const connectWallet = async () => {
+    if ("phantom" in window) {
       const provider = window.phantom?.solana;
-      if (provider?.isPhantom) {  
+      if (provider?.isPhantom) {
         phantom = provider;
         try {
-          const {solana} = window;
-                    
-            if(solana.isPhantom) {
-              console.log('Phantom wallet is installed');
-              const response = await phantom.connect();
-              console.log(response.publicKey.toString());
-              //loginWithPhantom();
-              router.push('/auth/signin');
-            }else{
-              console.log('Phantom wallet is not installed');
-              window.open('https://phantom.app/', '_blank');
-            }
-          } catch (error) {
-            console.log(error);
-          }
-      } else {
-        console.log('Phantom wallet is not installed');
-        
-      }
-    }else {
-      window.open('https://phantom.app/', '_blank');
-    }
-  }
+          const { solana } = window;
 
-  const signOutWallet =  () => {
-    console.log('sign out');
-    window.localStorage.removeItem('publicKey');
-    window.localStorage.removeItem('signature');
+          if (solana.isPhantom) {
+            console.log("Phantom wallet is installed");
+            const response = await phantom.connect();
+            console.log(response.publicKey.toString());
+            //loginWithPhantom();
+            router.push("/auth/signin");
+          } else {
+            console.log("Phantom wallet is not installed");
+            window.open("https://phantom.app/", "_blank");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        console.log("Phantom wallet is not installed");
+      }
+    } else {
+      window.open("https://phantom.app/", "_blank");
+    }
+  };
+
+  const signOutWallet = () => {
+    console.log("sign out");
+    window.localStorage.removeItem("publicKey");
+    window.localStorage.removeItem("signature");
     router.reload(window.location.pathname);
-  }
+  };
 
   return (
     <Popover className="relative bg-white">
@@ -127,17 +123,15 @@ const Header = () => {
                   <div>
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-offset-2  focus:ring-white">
                       <span className="sr-only">Open user menu</span>
-                      
-                        <Image
-                          className="rounded-full px-1 py-2"
-                          width={32} height={32}
-                          src='/images/phantom.png'
-                          alt=""
-                        />
-                        <div className="text-white px-1 py-2">
-                          {publicKey}
-                        </div>
-                     
+
+                      <Image
+                        className="rounded-full px-1 py-2"
+                        width={32}
+                        height={32}
+                        src="/images/phantom.png"
+                        alt=""
+                      />
+                      <div className="text-white px-1 py-2">{publicKey}</div>
                     </Menu.Button>
                   </div>
                   <Transition
@@ -198,7 +192,11 @@ const Header = () => {
                   </Transition>
                 </Menu>
               ) : (
-                <button onClick={() => {connectWallet()}}>
+                <button
+                  onClick={() => {
+                    connectWallet();
+                  }}
+                >
                   <a>Conectar cartera </a>
                 </button>
               )}

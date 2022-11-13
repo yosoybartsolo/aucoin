@@ -14,8 +14,86 @@ export default function Home() {
                   <Image
                     src="/images/monedita-kawaii-unicorn.png"
                     alt=""
-                    width={800}
-                    height={600}
+                    width={240}
+                    height={240}
+                    className="object-cover"
+                  />
+                </div>
+                <div className="textcontainer pb-4 px-2">
+                  <h2 className="title text-lg font-bold my-2">
+                    Monedita kawaii unicorn!{" "}
+                  </h2>
+                  <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
+                    12/12/2022
+                  </p>
+                  <button className="bg-gray-200 px-2 rounded-md cursor-pointer">
+                    Ver subasta
+                  </button>
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className="rounded-md shadow">
+            <Link href="/subastas/moneditakawaiiunicorn" passHref>
+              <div className="thumbitem  cursor-pointer mx-4 mb-4  shadow-md">
+                <div className="photocontainer">
+                  <Image
+                    src="/images/monedita-kawaii-unicorn.png"
+                    alt=""
+                    width={240}
+                    height={240}
+                    className="object-cover"
+                  />
+                </div>
+                <div className="textcontainer pb-4 px-2">
+                  <h2 className="title text-lg font-bold my-2">
+                    Monedita kawaii unicorn!{" "}
+                  </h2>
+                  <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
+                    12/12/2022
+                  </p>
+                  <button className="bg-gray-200 px-2 rounded-md cursor-pointer">
+                    Ver subasta
+                  </button>
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className="rounded-md shadow">
+            <Link href="/subastas/moneditakawaiiunicorn" passHref>
+              <div className="thumbitem  cursor-pointer mx-4 mb-4  shadow-md">
+                <div className="photocontainer">
+                  <Image
+                    src="/images/monedita-kawaii-unicorn.png"
+                    alt=""
+                    width={240}
+                    height={240}
+                    className="object-cover"
+                  />
+                </div>
+                <div className="textcontainer pb-4 px-2">
+                  <h2 className="title text-lg font-bold my-2">
+                    Monedita kawaii unicorn!{" "}
+                  </h2>
+                  <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
+                    12/12/2022
+                  </p>
+                  <button className="bg-gray-200 px-2 rounded-md cursor-pointer">
+                    Ver subasta
+                  </button>
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className="rounded-md shadow">
+            <Link href="/subastas/moneditakawaiiunicorn" passHref>
+              <div className="thumbitem  cursor-pointer mx-4 mb-4  shadow-md">
+                <div className="photocontainer">
+                  <Image
+                    src="/images/monedita-kawaii-unicorn.png"
+                    alt=""
+                    width={240}
+                    height={240}
                     className="object-cover"
                   />
                 </div>
