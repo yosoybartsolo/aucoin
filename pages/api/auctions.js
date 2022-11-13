@@ -46,22 +46,6 @@ handler.post(async (req, res) => {
       return;
     }
   });
-
-  // try {
-  //   const bid = {
-  //     bidder,
-  //     amount,
-  //     timestamp: dateNowUnix(),
-  //   };
-
-  //   await db.collection("aucoin-main").insertOne(bid);
-  //   res.status(200).json(bid);
-  // } catch (error) {
-  //   console.log(error);
-  //   res
-  //     .status(500)
-  //     .json({ error: error.message, message: "Error Creando un bid" });
-  // }
 });
 
 handler.get(async (req, res) => {
