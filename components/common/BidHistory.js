@@ -14,12 +14,12 @@ const bids = [
     timestamp: "2021-05-01T00:00:00.000Z",
   },
   {
-    bidder: "0x123456789",
+    bidder: "0x123456788",
     amount: 0.4,
     timestamp: "2021-05-01T00:00:00.000Z",
   },
   {
-    bidder: "0x123456789",
+    bidder: "0x123456782",
     amount: 1.0,
     timestamp: "2021-05-01T00:00:00.000Z",
   },

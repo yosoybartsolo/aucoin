@@ -3,31 +3,52 @@ import Link from "next/link";
 import Image from "next/image";
 import Countdown from "@/components/common/Countdown";
 import BidHistory from "../../components/common/BidHistory";
+import LoadingCircle from "@/components/common/LoadingCircle";
 import { useEffect, useState } from "react";
 import {
   Connection,
   SystemProgram,
   PublicKey,
-  VersionedTransaction,
   LAMPORTS_PER_SOL,
-  sendAndConfirmTransaction,
   clusterApiUrl,
-  TransactionMessage,
   Transaction,
-  Keypair,
-  recentBlockhash,
-  signAndSendTransaction,
 } from "@solana/web3.js";
+import axios from "axios";
 
 let publicKey = null;
 let phantom = null;
 
 export default function Home() {
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
+  const [bids, setBids] = useState(undefined);
+
+  useEffect(() => {
+    async function getBids() {
+      setIsInitialLoading(true);
+      try {
+        const { data } = await axios.get(`/api/auctions`);
+        setBids(data.bids);
+        setFetchError(false);
+        console.log(data.bids);
+      } catch (err) {
+        console.log("err =>", err);
+        setFetchError(true);
+        console.log("ya valió mami");
+      }
+      setIsInitialLoading(false);
+    }
+
+    getBids();
+  }, []);
+
   const [bid, setBid] = useState(0);
 
   useEffect(() => {
     publicKey = localStorage.getItem("publicKey");
+    console.log("publicKey", publicKey);
     getProvider();
+    axios.post("/api/auctions", { bidder: publicKey, amount: bid });
   }, []);
 
   const getProvider = async () => {
@@ -42,7 +63,8 @@ export default function Home() {
   };
 
   //Send bid
-  const sendBid = async () => {
+  const sendBid = async (e) => {
+    e.preventDefault();
     const provider = await getProvider();
 
     console.log(publicKey);
@@ -102,8 +124,8 @@ export default function Home() {
                   />
                   <div className="rounded-md shadow">
                     <div
-                      onClick={() => {
-                        sendBid();
+                      onClick={(e) => {
+                        sendBid(e);
                       }}
                       className="flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-600 px-8 py-3 text-base font-medium text-white hover:bg-yellow-700 md:py-4 md:px-10 md:text-lg"
                     >
@@ -124,7 +146,78 @@ export default function Home() {
                 </div>
               </div>
             </Link>
-            <BidHistory />
+            {/* <BidHistory /> */}
+            <div className="flex flex-col px-4">
+              <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                  {isInitialLoading ? (
+                    <div className="py-24">
+                      <LoadingCircle color="#000000" />
+                    </div>
+                  ) : fetchError ? (
+                    <div className="py-24 text-center">
+                      <p className="text-lg text-red-500">
+                        Hubo un error al cargar las subastas 😢
+                      </p>
+                    </div>
+                  ) : bids && bids.length > 0 ? (
+                    <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                      <table className="min-w-full divide-y divide-gray-200">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Comprador
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Monto
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Fecha
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                          {bids.map((bid) => (
+                            <tr key={bid.bidder}>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-900">
+                                  {bid.bidder}
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-900">
+                                  {bid.amount}
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-900">
+                                  {bid.timestamp}
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <div className="py-24 text-center">
+                      <p className="text-lg text-gray-500">
+                        No se encontraron subastas
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

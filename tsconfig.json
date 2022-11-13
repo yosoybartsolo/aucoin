@@ -25,6 +25,12 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "components/common/Countdown.js",
+    "components/common/Countdown.js"
+  ],
   "exclude": ["node_modules"]
 }
