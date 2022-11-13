@@ -38,7 +38,7 @@ export default function Home() {
               <div className="thumbitem  cursor-pointer mx-4 mb-4  shadow-md">
                 <div className="photocontainer">
                   <Image
-                    src="/images/monedita-kawaii-unicorn.png"
+                    src="/images/moneda-laton.jpeg"
                     alt=""
                     width={240}
                     height={240}
@@ -47,7 +47,7 @@ export default function Home() {
                 </div>
                 <div className="textcontainer pb-4 px-2">
                   <h2 className="title text-lg font-bold my-2">
-                    Monedita kawaii unicorn!{" "}
+                    Moneda latón $100 pesos{" "}
                   </h2>
                   <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
                     12/12/2022
@@ -64,7 +64,7 @@ export default function Home() {
               <div className="thumbitem  cursor-pointer mx-4 mb-4  shadow-md">
                 <div className="photocontainer">
                   <Image
-                    src="/images/monedita-kawaii-unicorn.png"
+                    src="/images/one-dollar.jpeg"
                     alt=""
                     width={240}
                     height={240}
@@ -73,7 +73,7 @@ export default function Home() {
                 </div>
                 <div className="textcontainer pb-4 px-2">
                   <h2 className="title text-lg font-bold my-2">
-                    Monedita kawaii unicorn!{" "}
+                    Moneda de un dollar 1851{" "}
                   </h2>
                   <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
                     12/12/2022
@@ -90,7 +90,7 @@ export default function Home() {
               <div className="thumbitem  cursor-pointer mx-4 mb-4  shadow-md">
                 <div className="photocontainer">
                   <Image
-                    src="/images/monedita-kawaii-unicorn.png"
+                    src="/images/olimpiada.jpeg"
                     alt=""
                     width={240}
                     height={240}
@@ -99,7 +99,7 @@ export default function Home() {
                 </div>
                 <div className="textcontainer pb-4 px-2">
                   <h2 className="title text-lg font-bold my-2">
-                    Monedita kawaii unicorn!{" "}
+                    Moneda Olimpiadas 1968{" "}
                   </h2>
                   <p className="capitalize text-happy-pink-600 font-bold text-sm mb-4">
                     12/12/2022
