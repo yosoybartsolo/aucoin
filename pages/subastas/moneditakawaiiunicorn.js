@@ -23,24 +23,24 @@ export default function Home() {
   const [fetchError, setFetchError] = useState(false);
   const [bids, setBids] = useState(undefined);
 
-  // useEffect(() => {
-  //   async function getBids() {
-  //     setIsInitialLoading(true);
-  //     try {
-  //       const { data } = await axios.get(`/api/auctions`);
-  //       setBids(data.bids);
-  //       setFetchError(false);
-  //       console.log(data.bids);
-  //     } catch (err) {
-  //       console.log("err =>", err);
-  //       setFetchError(true);
-  //       console.log("ya valió mami");
-  //     }
-  //     setIsInitialLoading(false);
-  //   }
+  useEffect(() => {
+    async function getBids() {
+      setIsInitialLoading(true);
+      try {
+        const { data } = await axios.get(`/api/auctions`);
+        setBids(data.bids);
+        setFetchError(false);
+        console.log(data.bids);
+      } catch (err) {
+        console.log("err =>", err);
+        setFetchError(true);
+        console.log("ya valió mami");
+      }
+      setIsInitialLoading(false);
+    }
 
-  //   getBids();
-  // }, []);
+    getBids();
+  }, []);
 
   const [bid, setBid] = useState(0);
 
