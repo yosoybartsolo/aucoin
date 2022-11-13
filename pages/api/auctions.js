@@ -1,10 +1,8 @@
 //USERS API ROUTE for logged in users
 import nc from "next-connect";
-import { getSession } from "next-auth/react";
 import clientPromise from "@/lib/mongodb";
 import ncoptions from "@/config/ncoptions";
 import { dateNowUnix } from "@/utils/dates";
-import axios from "axios";
 
 const handler = nc(ncoptions);
 
