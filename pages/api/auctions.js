@@ -6,24 +6,13 @@ import { dateNowUnix } from "@/utils/dates";
 
 const handler = nc(ncoptions);
 
-getStaticProps = async () => {
+// MIDDLEWARE;
+handler.use(async (req, res, next) => {
+  //connects to database
   const client = await clientPromise;
-  const db = await client.db();
-  const users = await db.collection("users").find({}).toArray();
-  return {
-    props: {
-      users: JSON.parse(JSON.stringify(users)),
-    },
-  };
-};
-
-//MIDDLEWARE
-// handler.use(async (req, res, next) => {
-//   //connects to database
-//   const client = await clientPromise;
-//   req.db = client.db();
-//   next();
-// });
+  req.db = client.db();
+  next();
+});
 
 //ADDS USER
 handler.post(async (req, res) => {
