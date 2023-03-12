@@ -38,7 +38,7 @@ const AdminUsersPage = () => {
                     Usuarios
                   </h3>
 
-                  <Link href="/admin/users/add" passHref>
+                  <Link href="/admin/users/add" passHref legacyBehavior>
                     <button
                       type="button"
                       className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -133,10 +133,12 @@ const AdminUsersPage = () => {
                                   </td>
 
                                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <Link href={`/admin/users/${user._id}`}>
-                                      <a className="text-indigo-600 hover:text-indigo-900">
+                                    <Link
+                                      href={`/admin/users/${user._id}`}
+                                      className="text-indigo-600 hover:text-indigo-900">
+                                      
                                         Mostrar
-                                      </a>
+                                      
                                     </Link>
                                   </td>
                                 </tr>

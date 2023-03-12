@@ -90,14 +90,14 @@ const Header = () => {
         {/* DESKTOP */}
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-5 sm:px-6 sm:py-4 lg:px-8 md:justify-start md:space-x-10">
           <div>
-            <Link href="/">
-              <a className="flex">
-                <img
-                  className="h-8 w-auto sm:h-10"
-                  src={logoUrl}
-                  alt="aucoin logo"
-                />
-              </a>
+            <Link href="/" className="flex">
+
+              <img
+                className="h-8 w-auto sm:h-10"
+                src={logoUrl}
+                alt="aucoin logo"
+              />
+
             </Link>
           </div>
           <div className="-mr-2 -my-2 md:hidden">
@@ -109,11 +109,14 @@ const Header = () => {
           <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
             <Popover.Group as="nav" className="flex space-x-10">
               {navigation.pages.map((page) => (
-                <Link key={page.name} href={page.href}>
-                  <a className="text-base font-medium text-gray-500 hover:text-gray-900">
-                    {page.name}
-                  </a>
-                </Link>
+                (<Link
+                  key={page.name}
+                  href={page.href}
+                  className="text-base font-medium text-gray-500 hover:text-gray-900">
+
+                  {page.name}
+
+                </Link>)
               ))}
             </Popover.Group>
             {/* HEADER DEKTOP RIGHT SECTION BUTTONS */}
@@ -146,30 +149,30 @@ const Header = () => {
                     <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-40">
                       <Menu.Item>
                         {({ active }) => (
-                          <Link href="/user/profile">
-                            <a
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
+                          <Link
+                            href="/user/profile"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}>
+                            
                               Mi Cuenta
-                            </a>
+                            
                           </Link>
                         )}
                       </Menu.Item>
                       {true && (
                         <Menu.Item>
                           {({ active }) => (
-                            <Link href="/admin/dashboard">
-                              <a
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                              >
+                            <Link
+                              href="/admin/dashboard"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}>
+                              
                                 Admin Dashboard
-                              </a>
+                              
                             </Link>
                           )}
                         </Menu.Item>
@@ -224,10 +227,10 @@ const Header = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <Link href="/">
-                    <a>
-                      {" "}
-                      <img className="h-8 w-auto" src={logoUrl} alt="logo" />
-                    </a>
+
+                    {" "}
+                    <img className="h-8 w-auto" src={logoUrl} alt="logo" />
+
                   </Link>
                 </div>
                 <div className="-mr-2">
@@ -240,11 +243,14 @@ const Header = () => {
             <div className="py-6 px-5">
               <div className="grid grid-cols-2 gap-4">
                 {navigation.pages.map((page) => (
-                  <Link key={page.name} href={page.href}>
-                    <a className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
-                      {page.name}
-                    </a>
-                  </Link>
+                  (<Link
+                    key={page.name}
+                    href={page.href}
+                    className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+
+                    {page.name}
+
+                  </Link>)
                 ))}
               </div>
             </div>

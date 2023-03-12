@@ -71,7 +71,7 @@ export default function Home() {
       <div className="content flex justify-center items-center w-full my-16">
         <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
           <div className="rounded-md shadow">
-            <Link href="#" passHref>
+            <Link href="#" passHref legacyBehavior>
               <div className="thumbitem  cursor-pointer mx-4 mb-4  shadow-md">
                 <div className="photocontainer">
                   <Image
